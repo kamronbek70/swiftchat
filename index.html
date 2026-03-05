@@ -1152,7 +1152,7 @@ function doLogout() {
 // ══════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════
-async function init() {
+function init() {
   try {
     const app = firebase.initializeApp({
       apiKey: 'AIzaSyC_FGT7YKwG3o8x9IgGMcjlZxTKVmPWrs',
@@ -1166,10 +1166,9 @@ async function init() {
     DB = firebase.database(app);
     firebase.auth(app);
   } catch(e) {
-    // Already initialized
-    DB = firebase.database();
-    firebase.auth();
+    try { DB = firebase.database(); firebase.auth(); } catch(e2) {}
   }
+  // Always proceed to auth screen immediately
   startAuthScreen();
 }
 
